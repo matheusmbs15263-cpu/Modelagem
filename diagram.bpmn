@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sid-38422fae-e03e-43a3-bef4-bd33b32041b2" targetNamespace="http://bpmn.io/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.6.1">
+  <collaboration id="Collaboration_1ktp7cv">
+    <participant id="Participant_0cggfle" name="Usuário" processRef="Process_1" />
+    <participant id="Participant_13pr7qy" name="Sistema" processRef="Process_0prm6sh" />
+    <messageFlow id="Flow_1bzl1u6" sourceRef="Activity_17ngvnl" targetRef="Activity_1ms32yp" />
+  </collaboration>
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Event_1h84lhe">
+      <outgoing>Flow_0aewlj5</outgoing>
+    </startEvent>
+    <task id="Activity_17ngvnl" name="Solicitação de Recebimento">
+      <incoming>Flow_0aewlj5</incoming>
+    </task>
+    <sequenceFlow id="Flow_0aewlj5" sourceRef="Event_1h84lhe" targetRef="Activity_17ngvnl" />
+  </process>
+  <process id="Process_0prm6sh">
+    <task id="Activity_1ms32yp" name="Gerar QR code">
+      <outgoing>Flow_0mju9e0</outgoing>
+    </task>
+    <task id="Activity_1b4n857" name="Chamar API asaas QR code">
+      <incoming>Flow_0mju9e0</incoming>
+      <outgoing>Flow_0l2u2ya</outgoing>
+    </task>
+    <task id="Activity_0ielkiw" name="aguardar notificação de pagamento (webhook)">
+      <incoming>Flow_0l2u2ya</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_0azmvhm">
+        <targetRef>DataStoreReference_1frkp6k</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <dataStoreReference id="DataStoreReference_1frkp6k" name="Analizar saldo no banco de dados" />
+    <endEvent id="Event_1wzf48b">
+      <property id="Property_0px4emv" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_029h6mu">
+        <sourceRef>DataStoreReference_1frkp6k</sourceRef>
+        <targetRef>Property_0px4emv</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_0mju9e0" sourceRef="Activity_1ms32yp" targetRef="Activity_1b4n857" />
+    <sequenceFlow id="Flow_0l2u2ya" sourceRef="Activity_1b4n857" targetRef="Activity_0ielkiw" />
+  </process>
+  <bpmndi:BPMNDiagram id="BpmnDiagram_1">
+    <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Collaboration_1ktp7cv">
+      <bpmndi:BPMNShape id="Participant_0cggfle_di" bpmnElement="Participant_0cggfle" isHorizontal="true">
+        <omgdc:Bounds x="152" y="80" width="1048" height="320" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1h84lhe_di" bpmnElement="Event_1h84lhe">
+        <omgdc:Bounds x="202" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17ngvnl_di" bpmnElement="Activity_17ngvnl">
+        <omgdc:Bounds x="290" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0aewlj5_di" bpmnElement="Flow_0aewlj5">
+        <omgdi:waypoint x="238" y="180" />
+        <omgdi:waypoint x="290" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_13pr7qy_di" bpmnElement="Participant_13pr7qy" isHorizontal="true">
+        <omgdc:Bounds x="152" y="400" width="1048" height="320" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ms32yp_di" bpmnElement="Activity_1ms32yp">
+        <omgdc:Bounds x="250" y="430" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1b4n857_di" bpmnElement="Activity_1b4n857">
+        <omgdc:Bounds x="300" y="550" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ielkiw_di" bpmnElement="Activity_0ielkiw">
+        <omgdc:Bounds x="450" y="550" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1frkp6k_di" bpmnElement="DataStoreReference_1frkp6k">
+        <omgdc:Bounds x="625" y="595" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="614" y="652" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wzf48b_di" bpmnElement="Event_1wzf48b">
+        <omgdc:Bounds x="772" y="602" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0mju9e0_di" bpmnElement="Flow_0mju9e0">
+        <omgdi:waypoint x="300" y="510" />
+        <omgdi:waypoint x="300" y="530" />
+        <omgdi:waypoint x="350" y="530" />
+        <omgdi:waypoint x="350" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l2u2ya_di" bpmnElement="Flow_0l2u2ya">
+        <omgdi:waypoint x="400" y="590" />
+        <omgdi:waypoint x="450" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bzl1u6_di" bpmnElement="Flow_1bzl1u6">
+        <omgdi:waypoint x="340" y="220" />
+        <omgdi:waypoint x="340" y="330" />
+        <omgdi:waypoint x="300" y="330" />
+        <omgdi:waypoint x="300" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0azmvhm_di" bpmnElement="DataOutputAssociation_0azmvhm">
+        <omgdi:waypoint x="550" y="600" />
+        <omgdi:waypoint x="625" y="615" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_029h6mu_di" bpmnElement="DataInputAssociation_029h6mu">
+        <omgdi:waypoint x="675" y="620" />
+        <omgdi:waypoint x="772" y="620" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
